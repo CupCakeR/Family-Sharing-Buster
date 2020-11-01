@@ -9,7 +9,6 @@ public class FSBUSTER.Compatibility
 	constructor()
 	end
 
-	-- return bool if admin mod is installed
 	supports()
 		error("not implemented")
 	end
