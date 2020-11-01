@@ -1,0 +1,28 @@
+
+public class FSBUSTER.Compatibility
+	_get _set id
+	id = nil
+
+	_get _set printName
+	printName = "undefined"
+
+	constructor()
+	end
+
+	-- return bool if admin mod is installed
+	supports()
+		error("not implemented")
+	end
+
+	checkBanned(steamId)
+		error("not implemented")
+	end
+
+	banId(steamId, mins, reason)
+		error("not implemented")
+	end
+
+	register()
+		-- TODO: do shit
+	end
+end

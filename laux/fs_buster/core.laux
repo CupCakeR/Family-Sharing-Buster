@@ -1,0 +1,66 @@
+
+local cvars = FSBUSTER.ConVars
+
+hook.Add("PlayerAuthed", "FSBUSTER", (p, steamId, uniqueId) =>
+	stopif (!cvars.enable:GetBool())
+
+	local ownerSteamId64 = p:OwnerSteamID64()
+	stopif (p:SteamID64() == ownerSteamId64)
+
+	local ownerSteamId = util.SteamIDFrom64(ownerSteamId64)
+	FSBUSTER.AdminMod:checkBanned(ownerSteamId, (lenderIsBanned, data) =>
+		local mode = cvars.mode:GetInt()
+		local action = cvars.action:GetInt()
+		local banLength = cvars.banLength:GetInt()
+
+		if (mode == 1) then -- always block
+			game.KickID(steamId, "Family sharing has been disabled on this server")
+		elseif (mode == 2 && lenderIsBanned) then -- block if banned
+			game.KickID(steamId, `Trying to evade an existing ban. (Alt of ${ownerSteamId})`)
+		end
+
+		stopif (action == 1) -- stop if action = kick
+
+		local length = (banLength == -1) && (math.max(1, data.date_unban - os.time())) -- rare case but prevent accidental perm bans (if == 0 or < 0 if the ban hasn't been removed yes)
+			|| (banLength == 0) && 0
+			|| banLength
+
+		if (banLength == -1 && data.date_unban == 0) then -- make sure to carry over the perm ban
+			length = 0
+		end
+
+		FSBUSTER.AdminMod:banId(steamId, length, `Trying to evade an existing ban. (Alt of: ${ownerSteamId})`)
+		
+		if (action == 3) then -- action = ban lender too
+			FSBUSTER.AdminMod:banId(ownerSteamId, length, `Trying to evade a ban using family sharing. (Alt: ${steamId}, reason: ${data.reason})`)
+		end
+	end)
+end)
+
+local meta = FindMetaTable("Player")
+FSBUSTER.oldPlayerBan ||= meta.Ban
+function meta:Ban(minutes, kick) -- ban the lender if the family shared account gets banned
+	if (cvars.enable:GetBool()) then
+		local ownerSteamId64 = self:OwnerSteamID64()
+		local ownerSteamId = util.SteamIDFrom64(ownerSteamId64)
+
+		if (self:SteamID64() != ownerSteamId64) then
+			-- local banLength = cvars.banLength:GetInt()
+			-- local length = (banLength == -1) && minutes) -- same amount
+			-- 	|| (banLength == 0) && 0 -- perm
+			-- 	|| banLength
+			local reason = `A family shared account of yours has been banned. (${self:SteamID()}).`
+			-- FSBUSTER.AdminMod:banId(ownerSteamId, length, reason)
+			FSBUSTER.AdminMod:banId(ownerSteamId, minutes, reason)
+
+			timer.Simple(0, () => -- i don't want to be responsbile for double calls
+				local pLender = player.GetBySteamID(ownerSteamId)
+				if (IsValid(pLender)) then
+					pLender:Kick(reason)
+				end
+			end)
+		end
+	end
+
+	FSBUSTER.oldPlayerBan(meta, minutes, kick)
+end

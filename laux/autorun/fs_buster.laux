@@ -1,0 +1,10 @@
+
+if (SERVER) then	
+	if (!FSBUSTER) then
+		hook.Add("Initialize", "FSBUSTER", () =>
+			include("fs_buster/init.lua")
+		end)
+	else
+		include("fs_buster/init.lua")
+	end
+end

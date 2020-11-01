@@ -1,0 +1,12 @@
+
+FSBUSTER ||= {}
+
+include("fs_buster/cvars.lua")
+include("fs_buster/support.lua")
+include("fs_buster/version.lua")
+
+stopif (!FSBUSTER.AdminMod)
+
+include("fs_buster/core.lua")
+
+FSBUSTER.Log("Initialized.")

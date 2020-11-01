@@ -1,0 +1,6 @@
+.history/
+.vscode/
+.vscode/settings.json
+.out/
+lua/
+transpile.bat

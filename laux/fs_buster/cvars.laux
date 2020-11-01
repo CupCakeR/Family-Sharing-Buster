@@ -1,0 +1,7 @@
+
+FSBUSTER.ConVars = {}
+
+FSBUSTER.ConVars.enable = CreateConVar("fsbuster_enable", "1", FCVAR_NONE, "Enable the system?")
+FSBUSTER.ConVars.mode = CreateConVar("fsbuster_mode", "2", FCVAR_NONE, "1 = Block family sharing; 2 = Block if lender is banned")
+FSBUSTER.ConVars.action = CreateConVar("fsbuster_action", "1", FCVAR_NONE, "1 = Kick; 2 = Ban; 3 = Ban the lender too")
+FSBUSTER.ConVars.banLength = CreateConVar("fsbuster_banlength", "0", FCVAR_NONE, "-1 = existing ban's remaining time; 0 = permanent; anything else = minutes. Note: This affects the lender's ban too if enabled")

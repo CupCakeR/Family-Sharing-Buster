@@ -1,0 +1,28 @@
+
+class ULX extends FSBUSTER.Compatibility
+	id = "ulx"
+	printName = "ULX"
+
+	supports()
+		return ULib != nil && ulx != nil
+	end
+
+	checkBanned(steamId, cb)
+		local data = ULib.bans[steamId]
+		cb(tobool(data), data && {
+			reason = data.reason,
+			admin = data.admin,
+			date_unban = data.unban
+		})
+	end
+
+	banId(steamId, mins, reason)
+		ULib.addBan(steamid, mins, reason, nil, nil)
+	end
+
+	__type()
+		return "FSBUSTER.Compatibility.ULX"
+	end
+end
+
+return ULX()

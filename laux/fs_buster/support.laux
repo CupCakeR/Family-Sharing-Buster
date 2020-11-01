@@ -1,0 +1,16 @@
+
+include("fs_buster/classes/compatibility.lua")
+
+FSBUSTER.AdminMod = false
+
+for i, fileName in ipairs(file.Find("fs_buster/support/*.lua", "LUA")) do
+	local obj = include("fs_buster/support/" .. fileName)
+	continueif (!obj:supports())
+
+	FSBUSTER.AdminMod = obj
+	FSBUSTER.Log(`Detected admin mod: "${obj:getPrintName()}".`)
+end
+
+if (!FSBUSTER.AdminMod) then
+	error("FSBUSTER: No compatible admin mod found")
+end

@@ -1,0 +1,29 @@
+
+class SAM extends FSBUSTER.Compatibility
+	id = "sam"
+	printName = "SAM"
+
+	supports()
+		return sam != nil
+	end
+
+	checkBanned(steamId, cb)
+		sam.player.is_banned(steamId, (data) =>
+			cb(tobool(data), istable(data) && {
+				reason = data.reason,
+				admin = data.admin,
+				date_unban = data.unban_date
+			})
+		end)
+	end
+
+	banId(steamId, mins, reason)
+		sam.player.ban_id(steamId, mins, reason, nil)
+	end
+
+	__type()
+		return "FSBUSTER.Compatibility.SAM"
+	end
+end
+
+return SAM()
