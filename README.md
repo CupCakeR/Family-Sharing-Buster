@@ -1,4 +1,4 @@
-## Family Sharing Buster
+# Family Sharing Buster
 A simple, yet effective little add-on to prevent people from abusing the Steam family sharing feature. No API key, nor setup required.
 
 ## Installation
