@@ -5,7 +5,7 @@ A simple, yet effective little add-on to prevent people from abusing the Steam f
 The source code requires to be [transpiled](https://gitlab.com/sleeppyy/laux).
 
 ## Installation
-Simple add the [workshop addon](https://www.google.com) to your server's workshop collection.
+Simply add the [workshop addon](https://www.google.com) to your server's workshop collection.
 
 ## Configuration (ConVars)
 | name | default | values |
