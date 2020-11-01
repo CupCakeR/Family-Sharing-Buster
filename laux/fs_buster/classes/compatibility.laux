@@ -21,8 +21,4 @@ public class FSBUSTER.Compatibility
 	banId(steamId, mins, reason)
 		error("not implemented")
 	end
-
-	register()
-		-- TODO: do shit
-	end
 end
