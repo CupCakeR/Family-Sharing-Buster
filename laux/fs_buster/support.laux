@@ -8,7 +8,7 @@ for i, fileName in ipairs(file.Find("fs_buster/support/*.lua", "LUA")) do
 	continueif (!obj:supports())
 
 	FSBUSTER.AdminMod = obj
-	FSBUSTER.Log(`Detected admin mod: "${obj:getPrintName()}".`)
+	print(`FSBUSTER: Automatically detected admin mod "${obj:getPrintName()}".`)
 end
 
 if (!FSBUSTER.AdminMod) then
