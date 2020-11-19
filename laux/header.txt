@@ -1,2 +1,2 @@
 Transpiled by CupCakeR (STEAM_0:0:72931887) on %date%.
-https://gitlab.com/CupCakeR/family-sharing-buster/
+https://github.com/CupCakeR/family-sharing-buster/
